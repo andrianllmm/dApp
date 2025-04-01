@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "run development",
+      "dependsOn": ["npm: dev - frontend", "npm: run - smart-contracts"],
+      "dependsOrder": "parallel",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "npm: dev - frontend",
+      "type": "npm",
+      "path": "packages/web",
+      "script": "dev",
+      "detail": "next dev --turbo",
+      "group": "build",
+      "presentation": {
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "npm: run - smart-contracts",
+      "type": "npm",
+      "path": "packages/smart-contracts",
+      "script": "start",
+      "detail": "hardhat node",
+      "group": "build",
+      "presentation": {
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "run tests",
+      "dependsOn": ["npm: lint - frontend", "npm: test - smart-contracts"],
+      "dependsOrder": "parallel",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "path": "packages/web",
+      "problemMatcher": [],
+      "label": "npm: lint - frontend",
+      "detail": "next lint",
+      "group": "test"
+    },
+    {
+      "label": "npm: test - smart-contracts",
+      "type": "npm",
+      "path": "packages/smart-contracts",
+      "script": "test",
+      "detail": "hardhat test",
+      "group": "test"
+    }
+  ]
+}
